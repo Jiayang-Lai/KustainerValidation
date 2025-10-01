@@ -2,7 +2,7 @@
     {
         "TenantId":  "aaaa",
         "SourceSystem":  "Azure AD",
-        "TimeGenerated [UTC]":  "10/27/2024, 2:11:58.385 PM",
+        "TimeGenerated":  "2024-10-27T14:11:58.385Z",
         "ResourceId":  "/tenants/aaaa/providers/Microsoft.aadiam",
         "OperationName":  "Update user",
         "OperationVersion":  "1.0",
@@ -27,14 +27,14 @@
         "TargetResources":  "",
         "AADTenantId":  "",
         "ActivityDisplayName":  "Update user",
-        "ActivityDateTime [UTC]":  "10/27/2024, 2:11:58.385 PM",
+    "ActivityDateTime [UTC]":  "2024-10-27T14:11:58.385Z",
         "AADOperationType":  "Update",
         "Type":  "AuditLogs"
     },
     {
         "TenantId":  "aaaa",
         "SourceSystem":  "Azure AD",
-        "TimeGenerated [UTC]":  "10/27/2024, 2:11:58.385 PM",
+        "TimeGenerated":  "2024-10-27T14:11:58.385Z",
         "ResourceId":  "/tenants/aaaa/providers/Microsoft.aadiam",
         "OperationName":  "Update user",
         "OperationVersion":  "1.0",
@@ -59,14 +59,14 @@
         "TargetResources":  "",
         "AADTenantId":  "",
         "ActivityDisplayName":  "Update user",
-        "ActivityDateTime [UTC]":  "10/27/2024, 2:11:58.385 PM",
+    "ActivityDateTime [UTC]":  "2024-10-27T14:11:58.385Z",
         "AADOperationType":  "Update",
         "Type":  "AuditLogs"
     },
     {
         "TenantId":  "aaaa",
         "SourceSystem":  "Azure AD",
-        "TimeGenerated [UTC]":  "10/27/2024, 2:11:58.385 PM",
+        "TimeGenerated":  "2024-10-27T14:11:58.385Z",
         "ResourceId":  "/tenants/aaaa/providers/Microsoft.aadiam",
         "OperationName":  "Update user",
         "OperationVersion":  "1.0",
@@ -91,7 +91,7 @@
         "TargetResources":  "",
         "AADTenantId":  "",
         "ActivityDisplayName":  "Update user",
-        "ActivityDateTime [UTC]":  "10/27/2024, 2:11:58.385 PM",
+    "ActivityDateTime [UTC]":  "2024-10-27T14:11:58.385Z",
         "AADOperationType":  "Update",
         "Type":  "AuditLogs"
     }
