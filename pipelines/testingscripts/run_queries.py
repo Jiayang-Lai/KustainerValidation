@@ -13,7 +13,7 @@ KUSTO_EMULATOR_URI = "http://localhost:8080"  # assuming default port 8080
 DATABASE = "NetDefaultDB"  # default database
 
 
-def get_queries() -> List[Tuple]:
+def get_queries() -> List[Tuple[str, str]]:
     """A function which retrieves all queries from detections.
     Returns a list of tuples, where the first element is the detection file name,
     and the second element is the query text."""
@@ -44,7 +44,7 @@ def get_queries() -> List[Tuple]:
     return queries
 
 
-def run_queries(client):
+def run_queries(client: KustoClient):
     """A function which executes queries and produces human-readable results.
     Also exits with an errorcode in case of errors."""
     queries = get_queries()

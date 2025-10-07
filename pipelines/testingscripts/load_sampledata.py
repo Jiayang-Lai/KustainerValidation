@@ -10,8 +10,21 @@ from azure.kusto.data import KustoClient, KustoConnectionStringBuilder
 KUSTO_EMULATOR_URI = "http://localhost:8080"  # assuming default port 8080
 DATABASE = "NetDefaultDB"  # default database
 
+def create_json_mapping(client: KustoClient, database_name: str, table_name: str, json_mapping_name: str, schema: list[dict[str, str]]):
+    """A function responsible for creating a JSON mapping for the specified table based on the provided schema.
+    Note: This will overwrite any existing mapping named <json_mapping_name> for the specified table.
+    The function is very basic and assumes that the JSON structure directly maps to the table schema.
+    """
+    # https://sandervandevelde.wordpress.com/2023/05/17/test-kql-table-mappings-inline/
+    print(f"Attempting to create JSON mapping for table {table_name}...")
+    mapping_entries = ", ".join(
+        [f'{{ "column": "{col['ColumnName']}", "path": "$.{col['ColumnName']}", "datatype": "{col['ColumnType']}" }}' for col in schema]
+    )
+    create_mapping_cmd = f'.create-or-alter table {table_name} ingestion json mapping "{json_mapping_name}" \'[ {mapping_entries} ]\''
+    client.execute_mgmt(database_name, create_mapping_cmd)
+    print(f"Created JSON mapping for table {table_name}!")
 
-def setup_table(client, table_name, schema):
+def setup_table(client: KustoClient, table_name: str, schema: list[dict[str, str]]):
     """A function responsible for formatting and running the create table command."""
     print(f"\nAttempting to create table {table_name}...")
     columns = ", ".join(
@@ -22,11 +35,11 @@ def setup_table(client, table_name, schema):
     print(f"Created table {table_name}!")
 
 
-def ingest_data(client, table_name, data):
+def ingest_data(client: KustoClient, table_name: str, json_mapping_name: str, data: list[dict]):
     """A function responsible for formatting and running the ingest inline commands."""
     print(f"Attempting to ingest data into {table_name}...")
     for row in data:
-        insert_cmd = f".ingest inline into table {table_name} <| {json.dumps(row)}"
+        insert_cmd = f".ingest inline into table {table_name} with (format = 'json', ingestionMappingReference = '{json_mapping_name}')  <| {json.dumps(row)}"
         client.execute(DATABASE, insert_cmd)
     print(f"Data ingested into {table_name}!")
 
@@ -52,14 +65,16 @@ def main():
                 schema = json.load(schema_file)
 
             # Create table
+            json_mapping_name = "JsonMapping"
             setup_table(client, table_folder, schema)
+            create_json_mapping(client, DATABASE, table_folder, json_mapping_name, schema)
 
             # Load data
             with open(
                 os.path.join(table_path, "data.json"), encoding="utf8"
             ) as data_file:
                 data = json.load(data_file)
-                ingest_data(client, table_folder, data)
+                ingest_data(client, table_folder, json_mapping_name, data)
     print("\nDone Loading sample data!")
 
 
